@@ -1,0 +1,437 @@
+.league-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+
+.league-btn {
+  background: rgba(12, 24, 53, 0.98);
+  border: 2px solid #23476eb7;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 4px 9px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.league-btn.active,
+.league-btn:hover {
+  background: #23476e;
+  border-color: #4171b9;
+}
+
+.difficulty-selector {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+
+.selector-label {
+  color: #eee;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.difficulty-btn {
+  background: rgba(12, 24, 53, 0.98);
+  border: 2px solid #6e2323b7;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  padding: 4px 9px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.difficulty-btn.active, .difficulty-btn:hover {
+  background: #6e2323;
+  border-color: #b94141;
+}
+
+.game-container {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-and-suggestions {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.instruction-box {
+  background-color: rgba(12, 24, 53, 0.98);
+  border: 3px solid rgba(110, 35, 35, 0.719);
+  padding: 10px 60px;
+  border-radius: 10px;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+}
+
+.input-box {
+  background-color: rgba(12, 24, 53, 0.98);
+  border: 3px solid rgba(110, 35, 35, 0.719);
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.input-box input:focus {
+  outline: none;
+}
+
+.suggestions-dropdown {
+  top: 100%;
+  position: absolute;
+  background: rgba(12, 24, 53, 0.98);
+  border: 3px solid #6e2323b7;
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 10px;
+  margin-top: 3px;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 2;
+}
+
+.suggestions-dropdown ul {
+  margin: 0;
+  padding: 0;
+}
+
+.suggestions-dropdown li {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-family: Arial, Helvetica, sans-serif;
+  cursor: pointer;
+}
+
+.suggestions-dropdown li:hover {
+  background: rgba(110, 35, 35, 0.6);
+}
+
+.suggestions-dropdown li.active {
+  background: rgba(110, 35, 35, 0.6);
+}
+
+.suggestion-img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 5%;
+  margin-right: 10px;
+  border: 1px solid #fff;
+}
+
+.suggestions-dropdown::-webkit-scrollbar {
+  width: 15px;
+}
+
+.suggestions-dropdown::-webkit-scrollbar-thumb {
+  background: #373738;
+  border-radius: 5px;
+}
+
+.suggestions-dropdown::-webkit-scrollbar-track {
+  background: #131824;
+  border-radius: 7px;
+}
+
+.player-params-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.player-params-row .param {
+  display: flex;
+  border: 2px solid transparent;
+  flex-direction: column;
+  width: 70px;
+  height: 50px;
+  padding: 8px 2px 0 5px;
+}
+
+.player-params-row .param .text-wrapper {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-params-row .param .label {
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+.player-params-row .param .bar {
+  width: 95%;
+  height: 2.5px;
+  background: #fff;
+  margin-bottom: 8px;
+}
+
+.player-data-row {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 5px;
+}
+
+.player-data-row .param {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #fff;
+  width: 85px;
+  height: 85px;
+  padding: 6px 0px 6px 0px;
+}
+
+.param {
+  position: relative;
+  overflow: hidden;
+}
+
+.player_img .img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.player_img img {
+  height: 80px;
+  object-fit: contain;
+}
+
+.club_logo .img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.club_logo img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.green-bg {
+  background-color: rgb(16, 121, 16);
+}
+
+.red-bg {
+  background-color: rgb(172, 14, 14);
+}
+
+.orange-bg {
+  background-color: rgb(226, 135, 15);
+}
+
+.direction-arrow {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.red-bg .direction-arrow {
+  filter: brightness(0) saturate(100%) invert(10%) sepia(75%) saturate(5414%)
+    hue-rotate(350deg) brightness(70%) contrast(120%);
+}
+
+.green-bg .direction-arrow {
+  filter: brightness(0) saturate(100%) invert(20%) sepia(90%) saturate(2000%)
+    hue-rotate(90deg) brightness(70%) contrast(120%);
+}
+
+.param-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.pre-animation {
+  opacity: 0;
+}
+
+@keyframes flip {
+  0% {
+    transform: rotateY(0);
+    opacity: 0;
+  }
+  50% {
+    transform: rotateY(90deg);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateY(0);
+    opacity: 1;
+  }
+}
+
+.flip-animation {
+  animation: flip 0.5s ease-out forwards;
+}
+
+.player-data-row .param.flip-animation:nth-child(1) {
+  animation-delay: 0s;
+}
+.player-data-row .param.flip-animation:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.player-data-row .param.flip-animation:nth-child(3) {
+  animation-delay: 1s;
+}
+.player-data-row .param.flip-animation:nth-child(4) {
+  animation-delay: 1.5s;
+}
+.player-data-row .param.flip-animation:nth-child(5) {
+  animation-delay: 2s;
+}
+.player-data-row .param.flip-animation:nth-child(6) {
+  animation-delay: 2.5s;
+}
+.player-data-row .param.flip-animation:nth-child(7) {
+  animation-delay: 3s;
+}
+.player-data-row .param.flip-animation:nth-child(8) {
+  animation-delay: 3.5s;
+}
+.clue-on-side-stack.flip-animation{
+  animation-delay: 4s;
+}
+
+.input-box input:disabled {
+  cursor: not-allowed;
+}
+
+@keyframes winnerAnim {
+  0% {
+    box-shadow: 0 0 0 0 #00e674, 0 0 40px 5px #9fffe0 inset;
+    transform: scale(1);
+  }
+  40% {
+    box-shadow: 0 0 30px 8px #00e674, 0 0 70px 20px #9fffe0 inset;
+    transform: scale(1.05);
+  }
+  90% {
+    box-shadow: 0 0 0 0 #00e674, 0 0 40px 1.5px #9fffe0 inset;
+    transform: scale(1);
+  }
+  100% {
+    box-shadow: none;
+    transform: scale(1);
+  }
+}
+
+.winner-row {
+  animation: winnerAnim 1s 4s;
+  z-index: 10;
+}
+
+.clue-on-side-stack {
+  position: absolute;
+  right: -150px; 
+}
+
+.clue-label-on-side {
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.95em;
+  margin-bottom: 2px;
+  line-height: 1;
+  position: absolute;
+  top: -1.2em; 
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.clue-square-on-side {
+  width: 85px;
+  height: 100px;
+  background-color: rgb(16, 121, 16);
+  border: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  text-align: center;
+  position: relative; 
+}
+
+.clue-content-img, .clue-content-text {
+  width: 79px;
+  height: 79px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: contain;
+  text-align: center;
+}
+
+
+.clue-content-img {
+  display: block;
+}
+
+
+.clue-content-text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: #fff;
+  font-size: 1em;
+  word-break: break-word;
+  white-space: pre-wrap;
+}

@@ -1,0 +1,18 @@
+body {
+    background-image: url('assets/Camp-Nou-Image.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4); 
+    pointer-events: none; 
+    z-index: 0;
+}

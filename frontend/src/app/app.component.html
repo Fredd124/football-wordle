@@ -1,0 +1,331 @@
+<div class="global-background">
+  <div class="game-container">
+    <div class="league-selector">
+      <span class="selector-label">League:</span>
+      <button
+        type="button"
+        class="league-btn"
+        [class.active]="league === 'champions_league'"
+        (click)="setLeague('champions_league')"
+      >
+        Champions League
+      </button>
+      <button
+        type="button"
+        class="league-btn"
+        [class.active]="league === 'laliga'"
+        (click)="setLeague('laliga')"
+      >
+        LaLiga
+      </button>
+      <button
+        type="button"
+        class="league-btn"
+        [class.active]="league === 'premier_league'"
+        (click)="setLeague('premier_league')"
+      >
+        Premier League
+      </button>
+      <button
+        type="button"
+        class="league-btn"
+        [class.active]="league === 'liga_portugal'"
+        (click)="setLeague('liga_portugal')"
+      >
+        Liga Portugal
+      </button>
+      <button
+        type="button"
+        class="league-btn"
+        [class.active]="league === 'uefa_europe'"
+        (click)="setLeague('uefa_europe')"
+      >
+        UEFA Europe
+      </button>
+      <button
+        type="button"
+        class="league-btn"
+        [class.active]="league === 'uefa_conference'"
+        (click)="setLeague('uefa_conference')"
+      >
+        UEFA Conference
+      </button>
+    </div>
+    <div class="difficulty-selector">
+      <span class="selector-label"> Game Difficulty:</span>
+      <button
+        type="button"
+        class="difficulty-btn"
+        [class.active]="difficulty === 'super_easy'"
+        (click)="setDifficulty(league, 'super_easy')"
+      >
+        Super Easy
+      </button>
+      <button
+        type="button"
+        class="difficulty-btn"
+        [class.active]="difficulty === 'easy'"
+        (click)="setDifficulty(league, 'easy')"
+      >
+        Easy
+      </button>
+      <button
+        type="button"
+        class="difficulty-btn"
+        [class.active]="difficulty === 'medium'"
+        (click)="setDifficulty(league, 'medium')"
+      >
+        Medium
+      </button>
+      <button
+        type="button"
+        class="difficulty-btn"
+        [class.active]="difficulty === 'hard'"
+        (click)="setDifficulty(league, 'hard')"
+      >
+        Hard
+      </button>
+    </div>
+    <div class="instruction-input-wrapper" #inputWrapper>
+      <div class="instruction-box">
+        <p>Guess today's football player!</p>
+        <p *ngIf="!isSubmitted">Type any player name to begin.</p>
+      </div>
+      <div class="input-and-suggestions">
+        <div class="input-box">
+          <input
+            #inputBox
+            type="text"
+            [(ngModel)]="query"
+            (input)="getSuggestions()"
+            (focus)="getSuggestions()"
+            (keydown)="onInputKeyDown($event)"
+            [disabled]="isWinner"
+            placeholder="Type player name..."
+          />
+        </div>
+        <div *ngIf="suggestions.length > 0" class="suggestions-dropdown">
+          <ul>
+            <li
+              *ngFor="let suggestion of suggestions; let i = index"
+              [class.active]="i === activeSuggestionIndex"
+              (click)="submitGuess(suggestion.id)"
+            >
+              <img
+                [src]="suggestion.image"
+                alt="{{ suggestion.name }}"
+                class="suggestion-img"
+              />
+              {{ suggestion.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isSubmitted" class="player-params-row">
+      <div class="param">
+        <div class="text-wrapper">
+          <span class="label">Player</span>
+        </div>
+        <div class="bar"></div>
+      </div>
+      <div class="param">
+        <div class="text-wrapper">
+          <span class="label">Age</span>
+        </div>
+        <div class="bar"></div>
+      </div>
+      <div class="param">
+        <div class="text-wrapper">
+          <span class="label">Club</span>
+        </div>
+        <div class="bar"></div>
+      </div>
+      <div class="param">
+        <div class="text-wrapper">
+          <span class="label">Position</span>
+        </div>
+        <div class="bar"></div>
+      </div>
+      <div class="param">
+        <div class="text-wrapper">
+          <span class="label">Best Foot</span>
+        </div>
+        <div class="bar"></div>
+      </div>
+      <div class="param">
+        <div class="text-wrapper">
+          <span class="label">Number</span>
+        </div>
+        <div class="bar"></div>
+      </div>
+      <div class="param">
+        <div class="text-wrapper">
+          <span class="label">Country</span>
+        </div>
+        <div class="bar"></div>
+      </div>
+      <div class="param">
+        <div class="text-wrapper">
+          <span class="label">Market Value</span>
+        </div>
+        <div class="bar"></div>
+      </div>
+    </div>
+    <div
+      *ngFor="let player of players; let i = index; let last = last"
+      class="player-data-row"
+      #lastPlayerRow
+      [ngClass]="{ 'winner-row': isWinner && last }"
+      style="position: relative"
+    >
+      <div
+        class="param player_img"
+        [ngClass]="{
+          'pre-animation': isHidden,
+          'flip-animation': isSubmitted
+        }"
+      >
+        <div class="img-container">
+          <img [src]="player.image" alt="Photo" />
+        </div>
+      </div>
+      <div
+        class="param"
+        [ngClass]="{
+          'green-bg': player.age?.color === 'green',
+          'red-bg': player.age?.color === 'red',
+          'pre-animation': isHidden,
+          'flip-animation': isSubmitted
+        }"
+      >
+        <div class="img-container">
+          <img
+            *ngIf="player.age?.direction && player.age?.color == 'red'"
+            class="direction-arrow"
+            [src]="getArrowImage()"
+            [style.transform]="getArrowRotation(player.age?.direction)"
+            alt="Direction"
+          />
+        </div>
+        <span class="param-value">{{ player.age?.value }}</span>
+      </div>
+      <div
+        class="param club_logo"
+        [ngClass]="{
+          'green-bg': player.club_logo?.color === 'green',
+          'red-bg': player.club_logo?.color === 'red',
+          'pre-animation': isHidden,
+          'flip-animation': isSubmitted
+        }"
+      >
+        <div class="img-container">
+          <img [src]="player.club_logo.value" alt="Club Logo" />
+        </div>
+      </div>
+      <div
+        class="param"
+        [ngClass]="{
+          'green-bg': player.position?.color === 'green',
+          'red-bg': player.position?.color === 'red',
+          'pre-animation': isHidden,
+          'flip-animation': isSubmitted
+        }"
+      >
+        {{ player.position?.value }}
+      </div>
+      <div
+        class="param"
+        [ngClass]="{
+          'green-bg': player.best_foot?.color === 'green',
+          'red-bg': player.best_foot?.color === 'red',
+          'pre-animation': isHidden,
+          'flip-animation': isSubmitted
+        }"
+      >
+        {{ player.best_foot?.value }}
+      </div>
+      <div
+        class="param"
+        [ngClass]="{
+          'green-bg': player.number?.color === 'green',
+          'red-bg': player.number?.color === 'red',
+          'pre-animation': isHidden,
+          'flip-animation': isSubmitted
+        }"
+      >
+        <div class="img-container">
+          <img
+            *ngIf="player.number?.direction && player.number?.color == 'red'"
+            class="direction-arrow"
+            [src]="getArrowImage()"
+            [style.transform]="getArrowRotation(player.number?.direction)"
+            alt="Direction"
+          />
+        </div>
+        <span class="param-value">{{ player.number?.value }}</span>
+      </div>
+      <div
+        class="param"
+        [ngClass]="{
+          'green-bg': player.nationality_names?.color === 'green',
+          'orange-bg': player.nationality_names?.color === 'orange',
+          'red-bg': player.nationality_names?.color === 'red',
+          'pre-animation': isHidden,
+          'flip-animation': isSubmitted
+        }"
+      >
+        {{ player.nationality_names?.value }}
+      </div>
+      <div
+        class="param"
+        [ngClass]="{
+          'green-bg': player.market_value?.color === 'green',
+          'red-bg': player.market_value?.color === 'red',
+          'pre-animation': isHidden,
+          'flip-animation': isSubmitted
+        }"
+      >
+        <div class="img-container">
+          <img
+            *ngIf="
+              player.market_value?.direction &&
+              player.market_value?.color == 'red'
+            "
+            class="direction-arrow"
+            [src]="getArrowImage()"
+            [style.transform]="getArrowRotation(player.market_value?.direction)"
+            alt="Direction"
+          />
+        </div>
+        <span class="param-value">{{ player.market_value?.value }}</span>
+      </div>
+      <ng-container *ngIf="(i + 1) % 5 === 0 && clues.length > (i + 1) / 5 - 1">
+        <div
+          class="clue-on-side-stack"
+          [ngClass]="{
+            'pre-animation': isHidden,
+            'flip-animation': isSubmitted
+          }"
+        >
+          <div class="clue-label-on-side">
+            Clue {{ (i + 1) / 5 }}: {{ clues[(i + 1) / 5 - 1].type }}
+          </div>
+          <div class="clue-square-on-side">
+            <ng-container [ngSwitch]="clues[(i + 1) / 5 - 1].type">
+              <img
+                *ngSwitchCase="'Club'"
+                [src]="clues[(i + 1) / 5 - 1].clue"
+                alt="Club Logo"
+                class="clue-content-img"
+              />
+              <span *ngSwitchDefault class="clue-content-text">
+                {{ clues[(i + 1) / 5 - 1].clue }}
+              </span>
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
